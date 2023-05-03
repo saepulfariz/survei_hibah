@@ -94,4 +94,16 @@ class SurveiModel extends CI_Model
         }
         return $data;
     }
+
+    public function getNotValid()
+    {
+        $this->db->where('is_valid', 0);
+        return $this->findAll();
+    }
+
+    public function getValid()
+    {
+        $this->db->where('is_valid', 1);
+        return $this->findAll();
+    }
 }

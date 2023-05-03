@@ -82,4 +82,12 @@ class UserModel extends CI_Model
         $this->db->where($this->primaryKey, $id);
         return $this->db->delete($this->table);
     }
+
+    public function getTimeSurvei()
+    {
+        $this->db->select('*, (SELECT count(id_survei) FROM tb_survei WHERE cid = id_user) as cek');
+        // $this->db->where('id_role', 2);
+        $this->db->join('tb_role', 'tb_role.id_role = tb_user.id_role');
+        return $this->findAll();
+    }
 }

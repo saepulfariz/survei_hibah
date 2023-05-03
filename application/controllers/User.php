@@ -92,7 +92,7 @@ class User extends CI_Controller
             'is_active' => 1,
         ];
 
-        if ($this->input->post('password', true) == '') {
+        if ($this->input->post('password') != '') {
             $data['password'] = password_hash($this->input->post('password', true), PASSWORD_DEFAULT);
         }
 

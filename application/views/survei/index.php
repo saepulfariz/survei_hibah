@@ -23,7 +23,12 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-12">
-                <a href="<?= base_url('survei/new'); ?>" class="btn btn-primary btn-sm mb-2">New</a>
+                <?php if ($this->session->userdata('id_role') != 3) : ?>
+                    <a href="<?= base_url('survei/new'); ?>" class="btn btn-primary btn-sm mb-2">New</a>
+
+                <?php else : ?>
+
+                <?php endif; ?>
                 <div class="card">
                     <div class="card-header">
                         Kelola Survei
@@ -51,8 +56,13 @@
                                         <td><?= ($d['is_valid'] == 0) ? '<button class="btn btn-sm btn-secondary">Belum Valid</button>' : '<button class="btn btn-sm btn-success">Valid</button>'; ?></td>
                                         <td>
                                             <a class="btn btn-info btn-sm mb-2" href="<?= base_url('survei/' . $d['id_survei']); ?>">Detail</a>
-                                            <a class="btn btn-warning btn-sm mb-2" href="<?= base_url('survei/' . $d['id_survei'] . '/edit'); ?>">Edit</a>
-                                            <a class="btn btn-danger btn-sm mb-2 del-tombol" href="<?= base_url('survei/' . $d['id_survei'] . '/delete'); ?>">Delete</a>
+                                            <?php if ($this->session->userdata('id_role') != 3) : ?>
+
+                                                <a class="btn btn-warning btn-sm mb-2" href="<?= base_url('survei/' . $d['id_survei'] . '/edit'); ?>">Edit</a>
+                                                <a class="btn btn-danger btn-sm mb-2 del-tombol" href="<?= base_url('survei/' . $d['id_survei'] . '/delete'); ?>">Delete</a>
+                                            <?php else : ?>
+
+                                            <?php endif; ?>
 
                                         </td>
                                     </tr>

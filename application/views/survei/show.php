@@ -357,12 +357,18 @@
                         </div>
                         <?= form_error('rekomendasi', '<div class="error text-danger mb-2" style="margin-top: -15px">', '</div>'); ?>
 
-                        <?php if ($survei['is_valid'] == 0) : ?>
-                            <a href="<?= base_url('survei'); ?>/<?= $survei['id_survei']; ?>/valid" class="btn btn-secondary">Belum Valid</a>
+                        <?php if ($this->session->userdata('id_role') != 3) : ?>
+
+                            <?php if ($survei['is_valid'] == 0) : ?>
+                                <a href="<?= base_url('survei'); ?>/<?= $survei['id_survei']; ?>/valid" class="btn btn-secondary">Belum Valid</a>
+                            <?php else : ?>
+                                <button type="button" class="btn btn-success">Verifikasi Valid</button>
+                            <?php endif; ?>
                         <?php else : ?>
-                            <button type="button" class="btn btn-success">Verifikasi Valid</button>
+
                         <?php endif; ?>
                         <a href="<?= base_url('survei'); ?>" class="btn btn-warning">Kembali</a>
+                        <button onclick="window.print()" class="btn btn-info">Cetak</button>
                     </div>
                 </div>
             </div>

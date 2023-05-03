@@ -23,6 +23,9 @@ class Survei extends CI_Controller
 
 	public function new()
 	{
+		if ($this->session->userdata('id_role') == 3) {
+			redirect('survei', 'refresh');
+		}
 		$data['title'] = $this->title;
 		$data['ket_lembaga'] = $this->survei->getEnum('ket_lembaga');
 		$data['label_ketua'] = $this->survei->getEnum('label_ketua');
@@ -34,6 +37,9 @@ class Survei extends CI_Controller
 
 	public function create()
 	{
+		if ($this->session->userdata('id_role') == 3) {
+			redirect('survei', 'refresh');
+		}
 		$this->form_validation->set_rules('ket_lembaga', 'ket_lembaga', 'required');
 		$this->form_validation->set_rules('nama_lembaga', 'nama_lembaga', 'required');
 		$this->form_validation->set_rules('alamat_lembaga', 'alamat_lembaga', 'required');
@@ -156,6 +162,9 @@ class Survei extends CI_Controller
 
 	public function valid($id_survei)
 	{
+		if ($this->session->userdata('id_role') == 3) {
+			redirect('survei', 'refresh');
+		}
 		$result = $this->survei->find($id_survei);
 
 
@@ -182,6 +191,9 @@ class Survei extends CI_Controller
 
 	public function delete($id)
 	{
+		if ($this->session->userdata('id_role') == 3) {
+			redirect('survei', 'refresh');
+		}
 		$result = $this->survei->find($id);
 
 		if (!$result) {
