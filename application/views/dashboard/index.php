@@ -28,7 +28,7 @@
                         DASHBOARD
                     </div>
                     <div class="card-body">
-                        <p>Selamat Datang, Sistem Informasi Survei Hibah, Login Sebagai <b></b></p>
+                        <p>Selamat Datang, Sistem Informasi Survei Hibah, Login Sebagai <b><?= $this->session->userdata('username'); ?></b></p>
 
                     </div>
                 </div>

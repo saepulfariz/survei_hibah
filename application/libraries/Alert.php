@@ -4,47 +4,47 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class alert
 {
-    function set($icon, $title, $text, $url = null)
-    {
-        $ci = get_instance();
-        $data = [
-            'icon' => $icon,
-            'title' => $title,
-            'text' => $text,
-            'url' => $url
-        ];
+	function set($icon, $title, $text, $url = null)
+	{
+		$ci = get_instance();
+		$data = [
+			'icon' => $icon,
+			'title' => $title,
+			'text' => $text,
+			'url' => $url
+		];
 
-        $ci->session->set_flashdata('iconFlash', $data['icon']);
-        $ci->session->set_flashdata('titleFlash', $data['title']);
-        $ci->session->set_flashdata('textFlash', $data['text']);
-        $ci->session->set_flashdata('urlFlash', $data['url']);
-    }
+		$ci->session->set_flashdata('iconFlash', $data['icon']);
+		$ci->session->set_flashdata('titleFlash', $data['title']);
+		$ci->session->set_flashdata('textFlash', $data['text']);
+		$ci->session->set_flashdata('urlFlash', $data['url']);
+	}
 
-    function get($value = null)
-    {
-        /*
+	function get($value = null)
+	{
+		/*
 		<div id="flash" data-icon="<?= $this->session->flashdata('iconFlash'); ?>" data-title="<?= $this->session->flashdata('titleFlash'); ?>" data-text="<?= $this->session->flashdata('textFlash'); ?>" data-url="<?= $this->session->flashdata('urlFlash'); ?>"></div>
 
 		*/
 
-        $ci = get_instance();
+		$ci = get_instance();
 
-        // return $ci->session->flashdata($value);
-        return '<div id="flash" data-icon="' . $ci->session->flashdata('iconFlash') . '" data-title="' . $ci->session->flashdata('titleFlash') . '" data-text="' . $ci->session->flashdata('textFlash') . '" data-url="' . $ci->session->flashdata('urlFlash') . '"></div>';
-    }
+		// return $ci->session->flashdata($value);
+		return '<div id="flash" data-icon="' . $ci->session->flashdata('iconFlash') . '" data-title="' . $ci->session->flashdata('titleFlash') . '" data-text="' . $ci->session->flashdata('textFlash') . '" data-url="' . $ci->session->flashdata('urlFlash') . '"></div>';
+	}
 
-    function init($set)
-    {
+	function init($set)
+	{
 
-        // ini javascript buat popup pidah link kayak pake target
-        // window.open('https://www.w3schools.com');
-
-
-        // $dataLink = '<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
-        $dataLink = '<script src="' . base_url('assets/sweetalert2/sweetalert2.all.min.js') . '"></script>';
+		// ini javascript buat popup pidah link kayak pake target
+		// window.open('https://www.w3schools.com');
 
 
-        $data_jquery = "
+		// $dataLink = '<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>';
+		$dataLink = '<script src="' . base_url('assets/sweetalert2/sweetalert2.all.min.js') . '"></script>';
+
+
+		$data_jquery = "
 			<script>
 				const iconFlash = $('#flash').data('icon');
 				const titleFlash = $('#flash').data('title');
@@ -87,15 +87,7 @@ class alert
 					  confirmButtonText: 'Yes, delete it!'
 					}).then((result) => {
 					  if (result.value) {
-					    Swal.fire(
-					      'Deleted!',
-					      'Your file has been deleted.',
-					      'success'
-					   ).then((result) => {
-				        if (result.value) {
-					          	window.location.href = href;
-						       }
-					       })
+					    window.location.href = href;
 					   }
 					})
 				   e.preventDefault();
@@ -104,7 +96,7 @@ class alert
 
 		";
 
-        $data_vanilla = "
+		$data_vanilla = "
 			<script>
 
 				var btns = document.getElementsByClassName('del-tombol');
@@ -122,15 +114,7 @@ class alert
 						  confirmButtonText: 'Yes, delete it!'
 						}).then((result) => {
 						  if (result.value) {
-						    Swal.fire(
-						      'Deleted!',
-						      'Your file has been deleted.',
-						      'success'
-						   ).then((result) => {
-					        if (result.value) {
-						          	window.location.href = href;
-							       }
-						       })
+						    window.location.href = href;
 						   }
 						})
 					   e.preventDefault();
@@ -168,11 +152,11 @@ class alert
 
 		";
 
-        if ($set == "vanilla") {
-            echo $dataLink . $data_vanilla;
-        } else {
-            // echo '<div id="flash" data-icon="" data-title="" data-text="" data-url=""></div>';
-            echo  $dataLink . $data_jquery;
-        }
-    }
+		if ($set == "vanilla") {
+			echo $dataLink . $data_vanilla;
+		} else {
+			// echo '<div id="flash" data-icon="" data-title="" data-text="" data-url=""></div>';
+			echo  $dataLink . $data_jquery;
+		}
+	}
 }

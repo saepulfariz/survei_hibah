@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $title; ?> | KLINIK EVOTY</title>
+    <title><?= $title; ?> | SURVEI HIBAH</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
     <!-- pace-progress -->
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
+    <!-- <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/pace-progress/themes/black/pace-theme-flat-top.css"> -->
     <!-- adminlte-->
     <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/adminlte.min.css">
 
@@ -174,6 +174,188 @@
             ],
 
         })
+
+        function setLabel() {
+            var valueLembaga = $('#ket_lembaga').val();
+
+            if (valueLembaga == 'Lembaga') {
+                var res = 'Pimpinan';
+            } else if (valueLembaga == 'Ormas') {
+                var res = 'Ketua';
+            } else if (valueLembaga == 'Kelompok') {
+                var res = 'Ketua';
+            }
+            $('#res_label_ketua').html(res);
+            $('#label_ketua').val(res);
+        }
+
+        $('#ket_lembaga').on('change', function() {
+
+            setLabel();
+        })
+        setLabel();
+
+
+        $('#btn-rab').on('click', function() {
+            var idRab = $('#id_rab').val();
+            var nama = $('#nama').val();
+            var qty = $('#qty').val();
+            var harga = $('#harga').val();
+
+            if (idRab != '') {
+                // maka edit
+                $.ajax({
+                    url: '<?= base_url(); ?>rab/' + idRab,
+                    method: 'POST', // POST
+                    data: {
+                        nama: nama,
+                        qty: qty,
+                        harga: harga,
+                    },
+                    dataType: 'json', // json
+                    success: function(data) {
+
+                        Swal.fire({
+                            icon: data.icon,
+                            title: data.title,
+                            text: data.text
+                        })
+
+                        reloadRab();
+                    }
+                });
+            } else {
+                // maka new
+                $.ajax({
+                    url: '<?= base_url(); ?>rab',
+                    method: 'POST', // POST
+                    data: {
+                        nama: nama,
+                        qty: qty,
+                        harga: harga,
+                    },
+                    dataType: 'json', // json
+                    success: function(data) {
+
+                        Swal.fire({
+                            icon: data.icon,
+                            title: data.title,
+                            text: data.text
+                        })
+
+                        reloadRab();
+                    }
+                });
+            }
+        })
+
+        function reloadRab() {
+            var tableRab = $('#res-rab');
+            if (tableRab) {
+
+                $.ajax({
+                    url: '<?= base_url(); ?>rab',
+                    method: 'GET', // POST
+                    dataType: 'json', // json
+                    success: function(data) {
+                        var resTable = '';
+                        var no = 1;
+                        var total = 0;
+                        for (let index = 0; index < data.length; index++) {
+                            total += parseInt(data[index].total);
+                            resTable += `<tr>
+                                            <td>` + no + `</td>
+                                            <td>` + data[index].nama + `</td>
+                                            <td>` + data[index].qty + `</td>
+                                            <td>` + data[index].harga + `</td>
+                                            <td>` + data[index].total + `</td>
+                                            <td>
+                                                <button type="button" onclick="rabEdit(` + data[index].id_rab + `)" data-id="` + data[index].id_rab + `" class="btn btn-sm btn-warning">Edit</button>
+                                                <button type="button" onclick="rabDelete(` + data[index].id_rab + `)" data-id="` + data[index].id_rab + `" class="btn btn-sm btn-danger">Delete</button>
+                                            </td>
+                                        </tr>`;
+                            no++;
+                        }
+                        $('#res-rab').html(resTable);
+
+                        $('#nama').val('');
+                        $('#qty').val('');
+                        $('#harga').val('');
+                        $('#total').val('');
+                        $('#id_rab').val('');
+                        $('#usulan').val(total);
+
+                        $('#rabModal').modal('hide');
+                    }
+                });
+            }
+        }
+
+        function rabNew() {
+            reloadRab();
+            $('#rabModalLabel').html('Tambah RAB');
+            $('#rabModal').modal('show');
+        }
+
+        function rabEdit(id) {
+            $.ajax({
+                url: '<?= base_url(); ?>rab/' + id + '/edit',
+                method: 'GET', // POST
+                dataType: 'json', // json
+                success: function(data) {
+
+                    if (data.icon == 'warning') {
+                        Swal.fire({
+                            icon: data.icon,
+                            title: data.title,
+                            text: data.text
+                        })
+                    } else {
+
+                        $('#id_rab').val(data.id_rab);
+                        $('#nama').val(data.nama);
+                        $('#qty').val(data.qty);
+                        $('#harga').val(data.harga);
+                        $('#total').val(data.total);
+                    }
+
+
+                    $('#rabModalLabel').html('Edit RAB');
+                    $('#rabModal').modal('show');
+                }
+            });
+        }
+
+        function rabDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: '',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: '<?= base_url(); ?>rab/' + id + '/delete',
+                        method: 'GET', // POST
+                        dataType: 'json', // json
+                        success: function(data) {
+                            Swal.fire({
+                                icon: data.icon,
+                                title: data.title,
+                                text: data.text
+                            })
+
+                            reloadRab();
+                        }
+                    });
+                }
+            })
+        }
+
+        reloadRab();
     </script>
 </body>
 

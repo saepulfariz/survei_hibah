@@ -46,6 +46,11 @@
                             </div>
                             <?= form_error('nama_lengkap', '<div class="error text-danger mb-2" style="margin-top: -15px">', '</div>'); ?>
                             <div class="form-group">
+                                <label for="nip">NIP</label>
+                                <input type="text" class="form-control" id="nip" name="nip" placeholder="Nama lengkap" value="<?= set_value('nip'); ?>">
+                            </div>
+                            <?= form_error('nip', '<div class="error text-danger mb-2" style="margin-top: -15px">', '</div>'); ?>
+                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="email" value="<?= set_value('email'); ?>">
                             </div>

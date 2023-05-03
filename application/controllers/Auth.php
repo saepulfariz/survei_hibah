@@ -12,6 +12,9 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
+		if ($this->session->userdata('id_role')) {
+			redirect('dashboard', 'refresh');
+		}
 		$data['title'] = "Login";
 		$this->load->view('login/index', $data);
 	}
@@ -41,6 +44,7 @@ class Auth extends CI_Controller
 
 			if ($row > 0) {
 				$data_user = $data->row_array();
+
 				if (password_verify($password, $data_user['password'])) {
 					// echo "Login";
 					$this->session->set_userdata('username', $username);

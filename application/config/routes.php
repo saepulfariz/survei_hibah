@@ -67,3 +67,20 @@ $route['gantipass']['post'] = 'user/prosesGantipass';
 $route['profile']['get'] = 'user/profile';
 $route['profile/edit']['get'] = 'user/editProfile';
 $route['profile']['post'] = 'user/prosesProfile';
+
+
+$route['survei']['get'] = 'survei/index';
+$route['survei']['post'] = 'survei/create';
+$route['survei/new']['get'] = 'survei/new';
+$route['survei/(:any)/edit']['get'] = 'survei/edit/$1';
+$route['survei/(:any)/valid']['get'] = 'survei/valid/$1';
+$route['survei/(:any)']['get'] = 'survei/show/$1';
+$route['survei/(:any)']['post'] = 'survei/update/$1';
+$route['survei/(:any)/delete'] = 'survei/delete/$1';
+
+
+$route['rab']['get'] = 'rab/index';
+$route['rab']['post'] = 'rab/create';
+$route['rab/(:any)/edit']['get'] = 'rab/edit/$1';
+$route['rab/(:any)']['post'] = 'rab/update/$1';
+$route['rab/(:any)/delete'] = 'rab/delete/$1';

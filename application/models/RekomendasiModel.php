@@ -1,47 +1,14 @@
 <?php
 
 
-class UserModel extends CI_Model
+class RekomendasiModel extends CI_Model
 {
-    protected $table            = 'tb_user';
-    protected $primaryKey       = 'id_user';
+    protected $table            = 'tb_rekomendasi';
+    protected $primaryKey       = 'id_rekomendasi';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
 
-    public function getUserLogin($username)
-    {
-        $this->db->where('username ', $username);
-        // $this->db->or_where('email', $username);
-        $this->db->join('tb_role', 'tb_user.id_role = tb_role.id_role');
-        return $this->db->get('tb_user');
-    }
-
-
-    public function getRole()
-    {
-        return $this->db->get('tb_role')->result_array();
-    }
-
-    public function getUser()
-    {
-        $this->db->join('tb_role', 'tb_user.id_role = tb_role.id_role');
-        return $this->db->get('tb_user')->result_array();
-    }
-
-    public function getProfile($id)
-    {
-        $this->db->where($this->primaryKey, $id);
-
-        $this->db->join('tb_role', 'tb_user.id_role = tb_role.id_role');
-
-        if ($this->returnType == 'array') {
-            $data = $this->db->get($this->table)->row_array();
-        } else {
-            $data = $this->db->get($this->table)->row();
-        }
-        return $data;
-    }
 
     public function find($id)
     {
@@ -80,6 +47,12 @@ class UserModel extends CI_Model
     public function delete($id)
     {
         $this->db->where($this->primaryKey, $id);
+        return $this->db->delete($this->table);
+    }
+
+    public function deleteRekomendasi($id_survei)
+    {
+        $this->db->where('id_survei', $id_survei);
         return $this->db->delete($this->table);
     }
 }

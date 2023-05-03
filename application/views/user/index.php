@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Username</th>
+                                    <th>NIP</th>
                                     <th>Nama Lengkap</th>
                                     <th>Role</th>
                                     <th>Email</th>
@@ -47,6 +48,7 @@
                                     <tr>
                                         <td><?= $a++; ?></td>
                                         <td><?= $d['username']; ?></td>
+                                        <td><?= $d['nip']; ?></td>
                                         <td><?= $d['nama_lengkap']; ?></td>
                                         <td><?= $d['nama_role']; ?></td>
                                         <td><?= $d['email']; ?></td>

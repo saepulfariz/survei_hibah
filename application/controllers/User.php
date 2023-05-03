@@ -7,6 +7,7 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        cekLogin();
         $this->load->model('UserModel', 'user');
     }
 
@@ -31,6 +32,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[tb_user.email]');
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('id_role', 'Id Role', 'required');
+        $this->form_validation->set_rules('nip', 'NIP', 'required');
         $this->form_validation->set_rules(
             'password',
             'Password',
@@ -47,11 +49,12 @@ class User extends CI_Controller
                 'password' => password_hash($this->input->post('password', true), PASSWORD_DEFAULT),
                 'nama_lengkap' => $this->input->post('nama_lengkap', true),
                 'email' => $this->input->post('email', true),
+                'nip' => $this->input->post('nip', true),
                 'id_role' => $this->input->post('id_role', true),
                 'is_active' => 1,
             ];
 
-            $res = $this->user->insert($data);
+            $res = $this->user->save($data);
             if ($res) {
                 $this->alert->set('success', 'Success', 'Add Success');
             } else {
@@ -85,6 +88,7 @@ class User extends CI_Controller
             'nama_lengkap' => $this->input->post('nama_lengkap', true),
             'email' => $this->input->post('email', true),
             'id_role' => $this->input->post('id_role', true),
+            'nip' => $this->input->post('nip', true),
             'is_active' => 1,
         ];
 
@@ -100,6 +104,7 @@ class User extends CI_Controller
 
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('id_role', 'Id Role', 'required');
+        $this->form_validation->set_rules('nip', 'NIP', 'required');
 
 
         if ($this->form_validation->run() == FALSE) {
