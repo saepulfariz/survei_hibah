@@ -196,11 +196,17 @@
         setLabel();
 
 
+
+        var idSurvei = $('#id_survei').val();
+        var method = $('#method').val();
+        var id_survei = (method !== undefined) ? idSurvei : 0;
+
         $('#btn-rab').on('click', function() {
             var idRab = $('#id_rab').val();
             var nama = $('#nama').val();
             var qty = $('#qty').val();
             var harga = $('#harga').val();
+
 
             if (idRab != '') {
                 // maka edit
@@ -230,6 +236,7 @@
                     url: '<?= base_url(); ?>rab',
                     method: 'POST', // POST
                     data: {
+                        id_survei: id_survei,
                         nama: nama,
                         qty: qty,
                         harga: harga,
@@ -256,6 +263,9 @@
                 $.ajax({
                     url: '<?= base_url(); ?>rab',
                     method: 'GET', // POST
+                    data: {
+                        id_survei: id_survei,
+                    },
                     dataType: 'json', // json
                     success: function(data) {
                         var resTable = '';

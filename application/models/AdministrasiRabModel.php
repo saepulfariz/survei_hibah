@@ -10,6 +10,18 @@ class AdministrasiRabModel extends CI_Model
     protected $returnType       = 'array';
 
 
+    public function where($key, $value)
+    {
+        $this->db->where($key, $value);
+
+        if ($this->returnType == 'array') {
+            $data = $this->db->get($this->table)->row_array();
+        } else {
+            $data = $this->db->get($this->table)->row();
+        }
+        return $data;
+    }
+
     public function find($id)
     {
         $this->db->where($this->primaryKey, $id);

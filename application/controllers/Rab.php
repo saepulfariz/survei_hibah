@@ -12,13 +12,15 @@ class Rab extends CI_Controller
 
 	public function index()
 	{
-		echo json_encode($this->rab->getNewRab());
+		$id_survei = ($this->input->get('id_survei', true)) ? $this->input->get('id_survei', true) : 0;
+		echo json_encode($this->rab->getRab($id_survei));
 	}
 
 	public function create()
 	{
+		$id_survei = ($this->input->post('id_survei', true)) ? $this->input->post('id_survei', true) : 0;
 		$data = [
-			'id_survei' => 0,
+			'id_survei' => $id_survei,
 			'nama' => $this->input->post('nama', true),
 			'qty' => $this->input->post('qty', true),
 			'harga' => $this->input->post('harga', true),
