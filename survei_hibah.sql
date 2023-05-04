@@ -319,6 +319,16 @@ VALUES
     '567899',
     'karjono@gmail.com',
     1
+  ),
+  (
+    6,
+    2,
+    'survei',
+    '$2y$10$CKuJPzmZi7QEjIE64C4WMO2mh4zIR5UbzXucoCDZutZD8KaUID9cy',
+    'survei',
+    '789',
+    'survei@gmail.com',
+    1
   );
 
 --
