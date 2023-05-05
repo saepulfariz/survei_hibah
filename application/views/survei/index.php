@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-12">
                 <?php if ($this->session->userdata('id_role') != 3) : ?>
-                    <a href="<?= base_url('survei/new'); ?>" class="btn btn-primary btn-sm mb-2">New</a>
+                    <a href="<?= base_url('survei/new'); ?>" class="btn btn-primary btn-sm mb-2">Tambah</a>
 
                 <?php else : ?>
 

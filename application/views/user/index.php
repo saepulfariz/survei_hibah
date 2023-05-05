@@ -23,7 +23,7 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-12">
-                <a href="<?= base_url('user/new'); ?>" class="btn btn-primary btn-sm mb-2">New</a>
+                <a href="<?= base_url('user/new'); ?>" class="btn btn-primary btn-sm mb-2">Tambah</a>
                 <div class="card">
                     <div class="card-header">
                         Kelola User
