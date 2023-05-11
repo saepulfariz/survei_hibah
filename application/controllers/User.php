@@ -181,7 +181,7 @@ class User extends CI_Controller
     public function profile()
     {
         $data['title'] = 'Profile';
-        $data['user'] = $this->user->getProfile($this->session->userdata('id_role'));
+        $data['user'] = $this->user->getProfile($this->session->userdata('id_user'));
         $this->template->load('template/index', 'user/profile', $data);
     }
 

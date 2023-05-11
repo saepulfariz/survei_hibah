@@ -51,7 +51,7 @@ $segment2 = $this->uri->segment(2);
 
                 <?php if ($this->session->userdata('id_role') == 1) : ?>
 
-                    <li class="nav-item">
+                    <li clgass="nav-item">
                         <a href="<?= base_url('user'); ?>" class="nav-link <?= ($segment == 'user') ? 'active' : ''; ?>">
                             <i class="nav-icon fas fa-users"></i>
                             <p>
